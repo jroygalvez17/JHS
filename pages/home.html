@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSNHS Research Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .category-card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 200px;
+            /* Fixed height for uniformity */
+            object-fit: cover;
+            /* Ensures images cover the space without distorting */
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .card-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-footer {
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .sidebar {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: -webkit-sticky;
+            position: sticky;
+            top: 20px;
+        }
+
+        .announcement-card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .calendar-container iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+
+        .visitor-count {
+            margin-top: 20px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .announcement-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .announcement-description {
+            font-size: 1rem;
+        }
+
+        .btn-navigate {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn-navigate:hover {
+            background-color: #0056b3;
+        }
+
+        .navbar .navbar-brand img {
+            width: 40px;
+            /* Adjust the width of the logo */
+            height: 40px;
+            /* Adjust the height to maintain the circle shape */
+            object-fit: cover;
+            border-radius: 50%;
+            /* Makes the image circular */
+            margin-right: 10px;
+        }
+
+        .list-group-item:hover {
+            background-color: #e9ecef;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+
+        .overview {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 20px;
+        }
+
+        /* Media query for small screens */
+        @media (max-width: 600px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                margin-bottom: 20px;
+                /* Add margin to avoid overlap */
+            }
+
+            .overview {
+                position: relative;
+                top: 0;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+
+            .navbar-toggler {
+                display: block;
+            }
+
+            .navbar-collapse {
+                display: none;
+            }
+
+            .navbar-collapse.show {
+                display: block;
+            }
+        }
+    </style>
+    <script src="js/researchData.js"></script>
+    <script src="js/eventsAndAnnouncements.js"></script>
+    <script src="js/program.js" defer></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm p-3">
+        <div class="container">
+            <!-- Logo Image -->
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHn_cZ7BsKJw5JMWR0ibGgVjkVitWBtKr1qA&s"
+                    alt="CSNHS Logo">
+                CSNHS Research Management System
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="program_survey.html">Check my Program</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Sidebar Start -->
+            <aside class="col-md-5 sidebar">
+                <div class="overview">
+                    <div id="overview-content">
+                        <h6>Overview of Camarines Sur National High School</h6>
+                        <p style="text-align: justify;">
+                            <b>Camarines Sur National High School (CSNHS)</b>, founded on <b>June 15, 1902</b>, is one
+                            of the oldest and largest public secondary schools in the Bicol Region. Initially
+                            established as the <b>Provincial High School of Nueva Caceres</b>, it later became
+                            <b>Camarines High School</b> before being converted into CSNHS in 1969 under <b>Republic Act
+                                5529</b>. Over the decades, the school expanded its programs and facilities, emphasizing
+                            academic excellence and holistic development.
+                        </p>
+
+                        <p style="text-align: justify;">
+                            CSNHS offers specialized programs such as the <b>Science, Technology, and Engineering (STE)
+                                Program</b>, <b>Special Program in Foreign Language (SPFL)</b>, <b>Special Program in
+                                the Arts (SPA)</b>, <b>Special Program in Journalism (SPJ)</b>, <b>Special Program for
+                                Technical-Vocational Education (SPTVE)</b>, and <b>Special Program in Sports (SPS)</b>.
+                            These programs cater to students' diverse talents and career aspirations, integrating
+                            research, innovation, and skills development.
+                        </p>
+
+                        <p style="text-align: justify;">
+                            Currently led by <b>Dr. Sulpicio C. Alferez III</b>, CSNHS continues to excel in academics,
+                            sports, and extracurricular activities. It has produced top researchers, athletes, and
+                            artists, receiving national and international recognition. The school remains committed to
+                            providing quality education, fostering leadership, and preparing students for global
+                            opportunities. Its legacy of excellence ensures that it remains a premier institution in the
+                            region.
+                        </p>
+
+                    </div>
+                </div>
+            </aside>
+            <!-- Sidebar End -->
+
+            <main class="col-md-7">
+                <div class="announcement-card mb-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="announcement-title" id="latest-announcement-title">Latest Announcement</h5>
+                            <p class="announcement-description" id="latest-announcement-description">Important updates
+                                regarding upcoming research submission deadlines and events.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Program Cards Start -->
+                    <div class="col-md-4 mb-4">
+                        <div class="category-card">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0n7ObG1wYjUNKMFu7z0zZNaEepVR2bRlzzQ&s"
+                                alt="SPSTE Image">
+                            <div class="card-body">
+                                <h6>Science, Technology, and Engineering (SPSTE)</h6>
+                                <p>Explore the fields of science, technology, and engineering.</p>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn-navigate" onclick="updateOverview('Science, Technology, and Engineering (SPSTE)')">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+                        <div class="category-card">
+                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirhB3lHy5R5-vv8PZivozhhzsqCxdy74fQPAiolOpnzZj6uJBKhzKTPw72rQsrqewOWDqTtNxVDePiCJ2KSJnBvdOQ9GO6eIjmb-Hl7XFDirko7Yca92H-ltLrmv4DWjJSHglUC0u7KTs/s1600/TLE+DEPT+OFFICIAL+LOGO+copy.jpg"
+                                alt="SPTVE Image">
+                            <div class="card-body">
+                                <h6>Special Program for Technical-Vocational Education (SPTVE)</h6>
+                                <p>Learn about technical and vocational education programs.</p>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn-navigate" onclick="updateOverview('Special Program for Technical-Vocational Education (SPTVE)')">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+                        <div class="category-card">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw3QKjccibgiF0ZemihuwHDFiiSid6QQaXQg&s"
+                                alt="SPFL Image">
+                            <div class="card-body">
+                                <h6>Special Program in Foreign Language (SPFL)</h6>
+                                <p>Discover the world of foreign languages and cultures.</p>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn-navigate" onclick="updateOverview('Special Program in Foreign Language (SPFL)')">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+                        <div class="category-card">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaRMfj52CIXlPCCw0aVvfZ77CLlhU6o6jX7Q&s"
+                                alt="SPJ Image">
+                            <div class="card-body">
+                                <h6>Special Program in Journalism (SPJ)</h6>
+                                <p>Engage in the field of journalism and media studies.</p>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn-navigate" onclick="updateOverview('Special Program in Journalism (SPJ)')">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+                        <div class="category-card">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9oCI_3kaPiqzUvBKrn4EDZyBTDCnGLeJqIA&s"
+                                alt="SPS Image">
+                            <div class="card-body">
+                                <h6>Special Program in Sports (SPS)</h6>
+                                <p>Explore the world of sports and physical education.</p>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn-navigate" onclick="updateOverview('Special Program in Sports (SPS)')">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+                        <div class="category-card">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFQ7ZDTH8E9r5ySBxWXmvHBXgdLZyDBIoFMg&s"
+                                alt="SPA Image">
+                            <div class="card-body">
+                                <h6>Special Program in the Arts (SPA)</h6>
+                                <p>Delve into the world of arts and creative expression.</p>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn-navigate" onclick="updateOverview('Special Program in the Arts (SPA)')">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Program Cards End -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+
+            navbarToggler.addEventListener('click', function () {
+                navbarCollapse.classList.toggle('show');
+            });
+
+            // Count research items per category
+            const categoryCounts = {
+                "Science, Technology, and Engineering (SPSTE)": 0,
+                "Special Program for Technical-Vocational Education (SPTVE)": 0,
+                "Special Program in Foreign Language (SPFL)": 0,
+                "Special Program in Journalism (SPJ)": 0,
+                "Special Program in Sports (SPS)": 0,
+                "Special Program in the Arts (SPA)": 0
+            };
+
+            researchData.forEach(item => {
+                if (categoryCounts[item.category] !== undefined) {
+                    categoryCounts[item.category]++;
+                }
+            });
+
+            document.getElementById('spste-count').textContent = categoryCounts["Science, Technology, and Engineering (SPSTE)"];
+            document.getElementById('sptve-count').textContent = categoryCounts["Special Program for Technical-Vocational Education (SPTVE)"];
+            document.getElementById('spfl-count').textContent = categoryCounts["Special Program in Foreign Language (SPFL)"];
+            document.getElementById('spj-count').textContent = categoryCounts["Special Program in Journalism (SPJ)"];
+            document.getElementById('sps-count').textContent = categoryCounts["Special Program in Sports (SPS)"];
+            document.getElementById('spa-count').textContent = categoryCounts["Special Program in the Arts (SPA)"];
+        });
+
+        function updateOverview(program) {
+            const overviewContent = {
+                "Science, Technology, and Engineering (SPSTE)": {
+                    dateStarted: "June 2005",
+                    overview: "The Science, Technology, and Engineering (SPSTE) program at CSNHS is designed to equip students with a strong foundation in scientific inquiry, technological advancements, and engineering principles. This program emphasizes hands-on learning through research projects, laboratory experiments, and real-world applications, fostering critical thinking, problem-solving, and innovation. Students work on advanced STEM concepts, collaborate on group projects, and participate in national and international competitions. With a curriculum integrating modern technologies, computational thinking, and data analysis, the program prepares students for higher education and professional careers in science, engineering, and technology-driven industries.",
+                    necessarySkills: [
+                        "Analytical and critical thinking",
+                        "Problem-solving and innovation",
+                        "Scientific research methodologies",
+                        "Technological proficiency",
+                        "Collaboration and teamwork",
+                        "Data analysis and computational thinking"
+                    ],
+                    accomplishments: [
+                        "Won 1st place in the National Science Fair 2020",
+                        "Published 10 research papers in international journals",
+                        "Developed a prototype for renewable energy"
+                    ]
+                },
+                "Special Program for Technical-Vocational Education (SPTVE)": {
+                    dateStarted: "June 2010",
+                    overview: "The Special Program for Technical-Vocational Education (SPTVE) at CSNHS provides students with hands-on training and industry-relevant skills in various technical fields. The program integrates classroom instruction with practical applications, ensuring students gain experience in real-world scenarios. Students undergo internships, technical workshops, and industry simulations to enhance their expertise in areas such as automotive technology, electronics, culinary arts, and other vocational fields. This program aims to produce competent, work-ready graduates who can excel in technical careers, entrepreneurship, or further specialized training in technical and vocational institutions.",
+                    necessarySkills: [
+                        "Technical and practical problem-solving",
+                        "Hands-on equipment handling",
+                        "Industry-standard safety procedures",
+                        "Adaptability to technical innovations",
+                        "Time management and efficiency",
+                        "Business and entrepreneurial mindset"
+                    ],
+                    accomplishments: [
+                        "Produced top-notch graduates in various technical fields",
+                        "Partnered with local industries for student internships",
+                        "Hosted annual technical-vocational skills competition"
+                    ]
+                },
+                "Special Program in Foreign Language (SPFL)": {
+                    dateStarted: "June 2012",
+                    overview: "The Special Program in Foreign Language (SPFL) at CSNHS is designed to enhance students’ communication skills through the study of foreign languages such as Spanish, French, Japanese, and more. The program fosters linguistic proficiency through immersive learning experiences, cultural exchanges, and interactions with native speakers. With a focus on global communication, students develop fluency, cultural awareness, and adaptability in a multilingual environment. Through real-world applications, including writing, speaking, and comprehension exercises, students gain an edge in international careers, diplomacy, business, and education.",
+                    necessarySkills: [
+                        "Fluency in listening, speaking, reading, and writing",
+                        "Cultural awareness and sensitivity",
+                        "Effective communication and interpersonal skills",
+                        "Grammar and language structure proficiency",
+                        "Adaptability in multilingual environments",
+                        "Critical thinking and contextual understanding"
+                    ],
+                    accomplishments: [
+                        "Achieved high proficiency scores in international language exams",
+                        "Conducted cultural exchange programs with foreign schools",
+                        "Published multilingual student magazine"
+                    ]
+                },
+                "Special Program in Journalism (SPJ)": {
+                    dateStarted: "June 2008",
+                    overview: "The Special Program in Journalism (SPJ) at CSNHS aims to develop students’ skills in journalistic writing, media literacy, and mass communication. The curriculum covers various aspects of journalism, including investigative reporting, news writing, editorial writing, photojournalism, and digital media production. Students engage in real-world journalism experiences through school publications, radio broadcasting, and multimedia projects. The program fosters critical thinking, ethical reporting, and an understanding of media’s role in society. Graduates are well-prepared for careers in journalism, media production, public relations, and related fields.",
+                    necessarySkills: [
+                        "News writing and reporting",
+                        "Editing and proofreading",
+                        "Public speaking and interviewing",
+                        "Photojournalism and digital media creation",
+                        "Fact-checking and ethical journalism",
+                        "Critical thinking and media analysis"
+                    ],
+                    accomplishments: [
+                        "Won multiple awards in national journalism contests",
+                        "Published a monthly school newspaper",
+                        "Hosted media literacy workshops"
+                    ]
+                },
+                "Special Program in Sports (SPS)": {
+                    dateStarted: "June 2006",
+                    overview: "The Special Program in Sports (SPS) at CSNHS is dedicated to developing students' athletic abilities, sportsmanship, and overall physical fitness. The program provides structured training in various sports, emphasizing discipline, teamwork, and leadership. Students participate in local and national competitions, undergo specialized coaching, and learn about sports science, nutrition, and injury prevention. The program also instills values such as perseverance, resilience, and healthy lifestyle habits, preparing students for careers in professional sports, coaching, fitness training, and physical education.",
+                    necessarySkills: [
+                        "Physical endurance and fitness",
+                        "Strategic thinking and game tactics",
+                        "Leadership and teamwork",
+                        "Discipline and time management",
+                        "Injury prevention and recovery knowledge",
+                        "Sportsmanship and ethical play"
+                    ],
+                    accomplishments: [
+                        "Produced national athletes in various sports",
+                        "Won championships in regional sports competitions",
+                        "Hosted annual sports festivals"
+                    ]
+                },
+                "Special Program in the Arts (SPA)": {
+                    dateStarted: "June 2011",
+                    overview: "The Special Program in the Arts (SPA) at CSNHS nurtures students’ talents in various artistic disciplines, including visual arts, music, dance, theater, and creative writing. The program provides extensive training through workshops, performances, and art exhibitions, encouraging self-expression and creativity. Students explore different artistic techniques, historical influences, and contemporary trends, preparing them for careers in the creative industry. The program also emphasizes collaboration, innovation, and appreciation of cultural diversity in artistic expression.",
+                    necessarySkills: [
+                        "Creative thinking and originality",
+                        "Technical proficiency in chosen art form",
+                        "Collaboration and ensemble work",
+                        "Stage presence and performance confidence",
+                        "Critical analysis and artistic interpretation",
+                        "Time management and project execution"
+                    ],
+                    accomplishments: [
+                        "Held annual art exhibitions and performances",
+                        "Won awards in national art competitions",
+                        "Published student art anthology"
+                    ]
+                }
+            };
+
+            const programDetails = overviewContent[program];
+            document.getElementById('overview-content').innerHTML = `
+                <h6>${program}</h6>
+                <p><strong>Date Started:</strong> ${programDetails.dateStarted}</p>
+                <p>${programDetails.overview}</p>
+                <p><strong>Necessary Skills:</strong></p>
+                <ul>
+                    ${programDetails.necessarySkills.map(necessarySkills => `<li>${necessarySkills}</li>`).join('')}
+                </ul><p><strong>Accomplishments:</strong></p>
+                <ul>
+                    ${programDetails.accomplishments.map(accomplishment => `<li>${accomplishment}</li>`).join('')}
+                </ul>
+            `;
+        }
+    </script>
+</body>
+
+</html>
