@@ -1,0 +1,1 @@
+Creating what program is suitable for elementary learners who want to pursue special curricular programs in Junior High School. This will be helpful if to assess their likes and dislikes and get a ranking on the possible program that they can take for Junior High School before the Early Registration Period scheduled by DepEd.
