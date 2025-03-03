@@ -14,7 +14,8 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+            margin-top: 0px;
+            min-height: 100%;
         }
         .survey-question {
             margin-bottom: 15px;
@@ -34,32 +35,82 @@
         }
         .result-container {
             display: none;
-            margin-top: 20px;
+            margin-top: 0px;
+            min-height: 100%;
         }
         .result-container h4 {
             margin-bottom: 20px;
         }
         .result-container ul {
-            list-style-type: none;
-            padding: 0;
+            list-style-type: disc;
+            padding-left: 20px;
         }
         .result-container ul li {
             margin-bottom: 10px;
         }
-        .chart-container {
+        .bar-graph {
             margin-top: 20px;
+        }
+        .bar-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .bar-label {
+            width: 200px;
+            text-align: left;
+            margin-right: 10px;
+        }
+        .bar {
+            height: 30px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            flex-grow: 1;
+            margin-right: 10px;
+            position: relative;
+        }
+        .bar-inner {
+            height: 100%;
+            background-color: #007bff;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .bar-percentage {
+            width: 50px;
+            text-align: right;
+        }
+        .two-columns {
+            display: flex;
+            justify-content: space-between;
+        }
+        .two-columns ul {
+            width: 95%;
+        }
+        .overview, .result-container {
+            min-height: 100%;
+        }
+        .progress {
+            height: 20px;
+            margin-top: 20px;
+        }
+        .progress-bar {
+            width: 0;
         }
     </style>
     <script src="../js/surveyQuestions.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm p-3">
         <div class="container">
             <!-- Logo Image -->
             <a class="navbar-brand d-flex align-items-center" href="home.html">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHn_cZ7BsKJw5JMWR0ibGgVjkVitWBtKr1qA&s" alt="CSNHS Logo">
-                CSNHS Research Management System
+                <img src="https://scontent.fwnp1-1.fna.fbcdn.net/v/t39.30808-6/467730939_963078615844733_6145120696735646163_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeEnOPjmH9KWQ36FKaTkxNridZeiMYKnxH11l6IxgqfEfT1rxpwYhu-_0VYAoZqFoTJGA8SJHrU6Jt6Vs0vks1xz&_nc_ohc=AYHYDPuak0EQ7kNvgF4ecPM&_nc_oc=AdgxLJ6Qt-v_k1ba-2iGuMg1wYhzjk4ZdHTwJjI8os5VybXAyxmYrmjnkCYVhotlKzs&_nc_zt=23&_nc_ht=scontent.fwnp1-1.fna&_nc_gid=A1eq902KbYJc0hwV4Y0MDu2&oh=00_AYAkZ-Gz611AZsGfh-Rj9Lut-5lMP1TfTfOyoAOTzmI1FQ&oe=67CB6E7A" alt="CSNHS Logo">
+                Camarines Sur National High School Program Checker
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -123,22 +174,29 @@
                     <div class="text-center mt-4">
                         <button type="button" class="btn btn-primary" id="next-button">Next</button>
                     </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" id="progress-bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <span id="progress-percentage" class="ms-2"></span>
+                    </div>
                 </div>
                 <div class="result-container card">
                     <div class="card-body">
                         <h4>Recommended Program</h4>
                         <p id="recommended-program"></p>
-                        <h5>Strengths:</h5>
-                        <ul id="strengths-list"></ul>
-                        <h5>Weaknesses:</h5>
-                        <ul id="weaknesses-list"></ul>
-                        <h5>Needs to Improve:</h5>
-                        <ul id="improve-list"></ul>
-                        <h5>Helpful Websites:</h5>
-                        <ul id="websites-list"></ul>
-                        <div class="chart-container">
-                            <canvas id="program-chart"></canvas>
+                        <h5>Program Overview:</h5>
+                        <p id="program-overview"></p>
+                        <div class="two-columns">
+                            <div>
+                                <h5>What to Expect:</h5>
+                                <ul id="expectations-list"></ul>
+                            </div>
+                            <div>
+                                <h5>Checklist of Things to Prepare:</h5>
+                                <ul id="checklist-list"></ul>
+                            </div>
                         </div>
+                        <h5>Program Suitability:</h5>
+                        <div id="bar-graph" class="bar-graph"></div>
                     </div>
                 </div>
             </main>
@@ -177,9 +235,10 @@
             document.getElementById('next-button').addEventListener('click', function () {
                 const selectedOption = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
                 if (selectedOption) {
-                    answers.push({ answer: selectedOption.value, program: surveyQuestions[currentQuestion - 1].program });
+                    answers.push({ answer: selectedOption.value, program: surveyQuestions[currentQuestion - 1].program, weight: surveyQuestions[currentQuestion - 1].weight });
                     document.getElementById(`question-${currentQuestion}`).classList.add('hidden');
                     currentQuestion++;
+                    updateProgressBar(currentQuestion - 1, totalQuestions);
                     if (currentQuestion <= totalQuestions) {
                         document.getElementById(`question-${currentQuestion}`).classList.remove('hidden');
                     } else {
@@ -190,6 +249,14 @@
                     alert('Please select an answer before proceeding.');
                 }
             });
+
+            function updateProgressBar(current, total) {
+                const progress = Math.min((current / total) * 100, 100);
+                const progressBar = document.getElementById('progress-bar');
+                progressBar.style.width = `${progress}%`;
+                progressBar.setAttribute('aria-valuenow', progress);
+                document.getElementById('progress-percentage').textContent = `${progress.toFixed(2)}%`;
+            }
 
             function determineProgram(answers) {
                 const programScores = {
@@ -203,7 +270,7 @@
 
                 answers.forEach((item) => {
                     if (item.answer === 'yes') {
-                        programScores[item.program]++;
+                        programScores[item.program] += parseFloat(item.weight);
                     }
                 });
 
@@ -217,37 +284,49 @@
 
                 document.getElementById('recommended-program').textContent = program;
 
-                const strengths = ["Analytical thinking", "Problem-solving", "Collaboration"];
-                const weaknesses = ["Time management", "Technical skills"];
-                const improve = ["Communication", "Leadership"];
-                const websites = ["https://www.khanacademy.org", "https://www.coursera.org"];
+                const programOverview = {
+                    "Science, Technology, and Engineering (SPSTE)": "The Science, Technology, and Engineering (STE) Program focuses on advanced science courses, engineering projects, and research opportunities. It aims to develop students' analytical and problem-solving skills, preparing them for careers in science and engineering fields.",
+                    "Special Program for Technical-Vocational Education (SPTVE)": "The Special Program for Technical-Vocational Education (SPTVE) offers hands-on technical training, industry certifications, and internship opportunities. It equips students with practical skills and knowledge for various technical and vocational careers.",
+                    "Special Program in Foreign Language (SPFL)": "The Special Program in Foreign Language (SPFL) provides language immersion, cultural exchange programs, and advanced language courses. It aims to enhance students' proficiency in foreign languages and their understanding of different cultures.",
+                    "Special Program in Journalism (SPJ)": "The Special Program in Journalism (SPJ) includes journalism workshops, school newspaper involvement, and media production. It develops students' writing, reporting, and media skills, preparing them for careers in journalism and media.",
+                    "Special Program in Sports (SPS)": "The Special Program in Sports (SPS) involves intensive sports training, competitions, and fitness and nutrition education. It aims to develop students' athletic skills and promote a healthy lifestyle.",
+                    "Special Program in the Arts (SPA)": "The Special Program in the Arts (SPA) features artistic workshops, performances and exhibitions, and creative projects. It nurtures students' artistic talents and creativity, preparing them for careers in the arts."
+                };
 
-                strengths.forEach(strength => {
-                    const li = document.createElement('li');
-                    li.textContent = strength;
-                    document.getElementById('strengths-list').appendChild(li);
-                });
+                const expectations = {
+                    "Science, Technology, and Engineering (SPSTE)": ["Advanced science courses", "Engineering projects", "Research opportunities"],
+                    "Special Program for Technical-Vocational Education (SPTVE)": ["Hands-on technical training", "Industry certifications", "Internship opportunities"],
+                    "Special Program in Foreign Language (SPFL)": ["Language immersion", "Cultural exchange programs", "Advanced language courses"],
+                    "Special Program in Journalism (SPJ)": ["Journalism workshops", "School newspaper involvement", "Media production"],
+                    "Special Program in Sports (SPS)": ["Intensive sports training", "Competitions", "Fitness and nutrition education"],
+                    "Special Program in the Arts (SPA)": ["Artistic workshops", "Performances and exhibitions", "Creative projects"]
+                };
 
-                weaknesses.forEach(weakness => {
-                    const li = document.createElement('li');
-                    li.textContent = weakness;
-                    document.getElementById('weaknesses-list').appendChild(li);
-                });
+                const checklist = {
+                    "Science, Technology, and Engineering (SPSTE)": ["Scientific calculator", "Lab coat", "Research journal"],
+                    "Special Program for Technical-Vocational Education (SPTVE)": ["Tool kit", "Safety gear", "Notebook"],
+                    "Special Program in Foreign Language (SPFL)": ["Language dictionary", "Notebook", "Cultural materials"],
+                    "Special Program in Journalism (SPJ)": ["Notebook", "Voice recorder", "Camera"],
+                    "Special Program in Sports (SPS)": ["Sports gear", "Water bottle", "Fitness tracker"],
+                    "Special Program in the Arts (SPA)": ["Art supplies", "Sketchbook", "Performance attire"]
+                };
 
-                improve.forEach(item => {
+                document.getElementById('program-overview').textContent = programOverview[program];
+
+                const expectationsList = document.getElementById('expectations-list');
+                expectationsList.innerHTML = '';
+                expectations[program].forEach(item => {
                     const li = document.createElement('li');
                     li.textContent = item;
-                    document.getElementById('improve-list').appendChild(li);
+                    expectationsList.appendChild(li);
                 });
 
-                websites.forEach(site => {
+                const checklistList = document.getElementById('checklist-list');
+                checklistList.innerHTML = '';
+                checklist[program].forEach(item => {
                     const li = document.createElement('li');
-                    const a = document.createElement('a');
-                    a.href = site;
-                    a.textContent = site;
-                    a.target = "_blank";
-                    li.appendChild(a);
-                    document.getElementById('websites-list').appendChild(li);
+                    li.textContent = item;
+                    checklistList.appendChild(li);
                 });
 
                 const programScores = {
@@ -261,48 +340,42 @@
 
                 answers.forEach((item) => {
                     if (item.answer === 'yes') {
-                        programScores[item.program]++;
+                        programScores[item.program] += parseFloat(item.weight);
                     }
                 });
 
                 const sortedPrograms = Object.keys(programScores).sort((a, b) => programScores[b] - programScores[a]);
                 const sortedScores = sortedPrograms.map(program => (programScores[program] / totalQuestions) * 100);
 
-                const ctx = document.getElementById('program-chart').getContext('2d');
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: sortedPrograms,
-                        datasets: [{
-                            label: 'Program Suitability (%)',
-                            data: sortedScores,
-                            backgroundColor: sortedPrograms.map((program, index) => index === 0 ? 'rgba(0, 123, 255, 0.5)' : 'rgba(169, 169, 169, 0.5)'),
-                            borderColor: sortedPrograms.map((program, index) => index === 0 ? 'rgba(0, 123, 255, 1)' : 'rgba(169, 169, 169, 1)'),
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        indexAxis: 'y',
-                        scales: {
-                            x: {
-                                beginAtZero: true,
-                                grid: {
-                                    display: false
-                                },
-                                ticks: {
-                                    callback: function(value) {
-                                        return value + '%';
-                                    }
-                                }
-                            },
-                            y: {
-                                grid: {
-                                    display: false
-                                }
-                            }
-                        }
-                    }
+                const barGraphContainer = document.getElementById('bar-graph');
+                barGraphContainer.innerHTML = '';
+                sortedPrograms.forEach(program => {
+                    const percentage = (programScores[program] / totalQuestions) * 100;
+                    const barContainer = document.createElement('div');
+                    barContainer.className = 'bar-container';
+                    const barLabel = document.createElement('div');
+                    barLabel.className = 'bar-label';
+                    barLabel.textContent = program;
+                    const bar = document.createElement('div');
+                    bar.className = 'bar';
+                    const barInner = document.createElement('div');
+                    barInner.className = 'bar-inner';
+                    barInner.style.width = `${percentage}%`;
+                    barInner.textContent = `${percentage.toFixed(2)}%`;
+                    const barPercentage = document.createElement('div');
+                    barPercentage.className = 'bar-percentage';
+                    barPercentage.textContent = `${percentage.toFixed(2)}%`;
+                    bar.appendChild(barInner);
+                    barContainer.appendChild(barLabel);
+                    barContainer.appendChild(bar);
+                    barContainer.appendChild(barPercentage);
+                    barGraphContainer.appendChild(barContainer);
                 });
+
+                // Adjust the height of the overview container to match the result container
+                const overviewContainer = document.querySelector('.overview');
+                const resultContainerHeight = resultContainer.offsetHeight;
+                overviewContainer.style.minHeight = `${resultContainerHeight}px`;
             }
         });
     </script>
