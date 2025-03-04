@@ -11,15 +11,14 @@
             background-color: #f8f9fa;
         }
 
-        .category-card {
-            background: #ffffff;
+        .category-card, .sidebar, .announcement-card, .visitor-count, .overview {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
         }
 
         .category-card img {
@@ -44,36 +43,10 @@
             margin-top: auto;
         }
 
-        .sidebar {
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: -webkit-sticky;
-            position: sticky;
-            top: 20px;
-        }
-
-        .announcement-card {
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
         .calendar-container iframe {
             width: 100%;
             height: 300px;
             border: none;
-        }
-
-        .visitor-count {
-            margin-top: 20px;
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .announcement-title {
@@ -121,7 +94,10 @@
         }
 
         .overview {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
