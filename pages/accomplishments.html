@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSNHS Accomplishments</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .category-card {
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .card-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-footer {
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .carousel-inner img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .overview {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            height: 300px; /* Match the height of the carousel */
+            overflow-y: auto; /* Add scroll if content overflows */
+        }
+
+        .navbar .navbar-brand img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: #000;
+            border-radius: 50%;
+            padding: 10px;
+        }
+
+        .carousel-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm p-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="home.html">
+                <img src="https://scontent.fwnp1-1.fna.fbcdn.net/v/t39.30808-6/467730939_963078615844733_6145120696735646163_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeEnOPjmH9KWQ36FKaTkxNridZeiMYKnxH11l6IxgqfEfT1rxpwYhu-_0VYAoZqFoTJGA8SJHrU6Jt6Vs0vks1xz&_nc_ohc=AYHYDPuak0EQ7kNvgF4ecPM&_nc_oc=AdgxLJ6Qt-v_k1ba-2iGuMg1wYhzjk4ZdHTwJjI8os5VybXAyxmYrmjnkCYVhotlKzs&_nc_zt=23&_nc_ht=scontent.fwnp1-1.fna&_nc_gid=A1eq902KbYJc0hwV4Y0MDu2&oh=00_AYAkZ-Gz611AZsGfh-Rj9Lut-5lMP1TfTfOyoAOTzmI1FQ&oe=67CB6E7A" alt="CSNHS Logo">
+                Camarines Sur National High School Program Checker
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="program_survey.html">Check my Program</a></li>
+                    <li class="nav-item"><a class="nav-link" href="accomplishments.html">Gallery</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Program Cards Start -->
+            <div class="col-md-2 mb-4">
+                <div class="category-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0n7ObG1wYjUNKMFu7z0zZNaEepVR2bRlzzQ&s"
+                        alt="SPSTE Image">
+                    <div class="card-body">
+                        <h6>SPSTE</h6>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn-navigate" onclick="showAccomplishments('SPSTE')">View</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2 mb-4">
+                <div class="category-card">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirhB3lHy5R5-vv8PZivozhhzsqCxdy74fQPAiolOpnzZj6uJBKhzKTPw72rQsrqewOWDqTtNxVDePiCJ2KSJnBvdOQ9GO6eIjmb-Hl7XFDirko7Yca92H-ltLrmv4DWjJSHglUC0u7KTs/s1600/TLE+DEPT+OFFICIAL+LOGO+copy.jpg"
+                        alt="SPTVE Image">
+                    <div class="card-body">
+                        <h6>SPTVE</h6>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn-navigate" onclick="showAccomplishments('SPTVE')">View</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2 mb-4">
+                <div class="category-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw3QKjccibgiF0ZemihuwHDFiiSid6QQaXQg&s"
+                        alt="SPFL Image">
+                    <div class="card-body">
+                        <h6>SPFL</h6>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn-navigate" onclick="showAccomplishments('SPFL')">View</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2 mb-4">
+                <div class="category-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaRMfj52CIXlPCCw0aVvfZ77CLlhU6o6jX7Q&s"
+                        alt="SPJ Image">
+                    <div class="card-body">
+                        <h6>SPJ</h6>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn-navigate" onclick="showAccomplishments('SPJ')">View</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2 mb-4">
+                <div class="category-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9oCI_3kaPiqzUvBKrn4EDZyBTDCnGLeJqIA&s"
+                        alt="SPS Image">
+                    <div class="card-body">
+                        <h6>SPS</h6>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn-navigate" onclick="showAccomplishments('SPS')">View</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2 mb-4">
+                <div class="category-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFQ7ZDTH8E9r5ySBxWXmvHBXgdLZyDBIoFMg&s"
+                        alt="SPA Image">
+                    <div class="card-body">
+                        <h6>SPA</h6>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn-navigate" onclick="showAccomplishments('SPA')">View</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Program Cards End -->
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="overview" id="accomplishments-overview">
+                    <h6>SPSTE Accomplishments</h6>
+                    <p>The Science, Technology, and Engineering (SPSTE) program at CSNHS has achieved numerous accolades in various competitions and research projects. Students have developed innovative solutions and prototypes, winning national and international awards.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="carousel-container">
+                    <div id="accomplishments-carousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="carousel-inner">
+                            <!-- Carousel items will be injected here -->
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#accomplishments-carousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#accomplishments-carousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const accomplishmentsData = {
+            "SPSTE": {
+                overview: "The Science, Technology, and Engineering (SPSTE) program at CSNHS has achieved numerous accolades in various competitions and research projects. Students have developed innovative solutions and prototypes, winning national and international awards."
+            },
+            "SPTVE": {
+                overview: "The Special Program for Technical-Vocational Education (SPTVE) at CSNHS has produced skilled graduates who excel in technical fields. The program's accomplishments include successful internships, industry partnerships, and technical competitions."
+            },
+            "SPFL": {
+                overview: "The Special Program in Foreign Language (SPFL) at CSNHS has enhanced students' linguistic abilities and cultural understanding. The program's achievements include high proficiency scores in language exams and successful cultural exchange programs."
+            },
+            "SPJ": {
+                overview: "The Special Program in Journalism (SPJ) at CSNHS has developed students' journalistic skills, resulting in award-winning publications and media projects. The program's accomplishments include national journalism contest wins and media literacy workshops."
+            },
+            "SPS": {
+                overview: "The Special Program in Sports (SPS) at CSNHS has nurtured talented athletes who have excelled in various sports. The program's achievements include producing national athletes and winning regional sports competitions."
+            },
+            "SPA": {
+                overview: "The Special Program in the Arts (SPA) at CSNHS has fostered students' artistic talents, resulting in award-winning performances and exhibitions. The program's accomplishments include national art competition wins and annual art exhibitions."
+            }
+        };
+
+        function showAccomplishments(program) {
+            const data = accomplishmentsData[program];
+            const carouselInner = document.getElementById('carousel-inner');
+            const overviewDiv = document.getElementById('accomplishments-overview');
+
+            // Fetch images from the folder dynamically
+            const images = [];
+            for (let i = 1; i <= 10; i++) {
+                const imagePath = `../images/${program.toLowerCase()}/${program.toLowerCase()}${i}.jpg`;
+                images.push(imagePath);
+            }
+
+            carouselInner.innerHTML = images.map((image, index) => `
+                <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                    <img src="${image}" class="d-block w-100" alt="${program} Image ${index + 1}">
+                </div>
+            `).join('');
+
+            document.getElementById('accomplishments-carousel').style.display = 'block';
+
+            overviewDiv.innerHTML = `
+                <h6>${program} Accomplishments</h6>
+                <p>${data.overview}</p>
+            `;
+        }
+
+        // Initial load
+        showAccomplishments('SPSTE');
+    </script>
+</body>
+
+</html>
+
+

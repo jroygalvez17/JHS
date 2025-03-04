@@ -6,7 +6,7 @@ const surveyQuestions = [
     { question: "Do you enjoy writing and storytelling?", program: "Special Program in Journalism (SPJ)", weight: Math.random().toFixed(2) },
     { question: "Are you passionate about sports and physical activities?", program: "Special Program in Sports (SPS)", weight: Math.random().toFixed(2) },
     { question: "Do you have an interest in visual arts, music, dance, or theater?", program: "Special Program in the Arts (SPA)", weight: Math.random().toFixed(2) },
-    { question: "Do you enjoy conducting scientific experiments and research?", program: "Science, Technology, and Engineering (SPSTE)", weight: Math.random().toFixed(2) },
+    /*{ question: "Do you enjoy conducting scientific experiments and research?", program: "Science, Technology, and Engineering (SPSTE)", weight: Math.random().toFixed(2) },
     { question: "Are you interested in technical and vocational skills such as automotive technology or electronics?", program: "Special Program for Technical-Vocational Education (SPTVE)", weight: Math.random().toFixed(2) },
     { question: "Do you enjoy participating in debates and public speaking?", program: "Special Program in Journalism (SPJ)", weight: Math.random().toFixed(2) },
     { question: "Are you interested in learning about computer programming and software development?", program: "Science, Technology, and Engineering (SPSTE)", weight: Math.random().toFixed(2) },
@@ -49,4 +49,4 @@ const surveyQuestions = [
     { question: "Do you enjoy performing in front of an audience?", program: "Special Program in the Arts (SPA)", weight: Math.random().toFixed(2) },
     { question: "Are you interested in learning about sports management and coaching?", program: "Special Program in Sports (SPS)", weight: Math.random().toFixed(2) },
     { question: "Do you enjoy writing reviews and critiques?", program: "Special Program in Journalism (SPJ)", weight: Math.random().toFixed(2) }
-];
+*/];
